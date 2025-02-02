@@ -3,7 +3,7 @@
 # Variables
 
 variable "server_name" {
-        default = "test-server1"
+        default = "adithya-instance"
 }
 
 
