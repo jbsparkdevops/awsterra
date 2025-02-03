@@ -95,7 +95,7 @@ sudo systemctl restart httpd
 EOF
 
   tags = {
-    Name = "my-ec2-instance"
+    Name = "bharghav-ec2-instance"
   }
 }
 
