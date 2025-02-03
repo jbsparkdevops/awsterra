@@ -20,7 +20,7 @@ resource "aws_security_group" "my_sg" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["YOUR_IP/32"] # Replace YOUR_IP with your actual public IP
+    cidr_blocks = ["203.0.113.25/32"] # Replace YOUR_IP with your actual public IP
   }
 
   # Outbound Rules (Allow all traffic)
