@@ -22,15 +22,18 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-1  # Change this to your AWS region
+          aws-region: us-east-1  # Change to your AWS region
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
         with:
           terraform_version: latest
 
-      - name: Initialize Terraform
-        run: terraform init
+      - name: Initialize Terraform (Ensure Backend is Configured)
+        run: terraform init -backend-config="bucket=bharghav-terraform-state" \
+                            -backend-config="key=terraform.tfstate" \
+                            -backend-config="region=us-east-1" \
+                            -backend-config="dynamodb_table=terraform-lock"
 
       - name: Auto-format Terraform Code
         run: terraform fmt -recursive
