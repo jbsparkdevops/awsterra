@@ -30,10 +30,12 @@ jobs:
           terraform_version: latest
 
       - name: Initialize Terraform (Ensure Backend is Configured)
-        run: terraform init -backend-config="bucket=bharghav-terraform-state" \
-                            -backend-config="key=terraform.tfstate" \
-                            -backend-config="region=us-east-1" \
-                            -backend-config="dynamodb_table=terraform-lock"
+        run: |
+          terraform init \
+            -backend-config="bucket=bharghav-terraform-state" \
+            -backend-config="key=terraform.tfstate" \
+            -backend-config="region=us-east-1" \
+            -backend-config="dynamodb_table=terraform-lock"
 
       - name: Auto-format Terraform Code
         run: terraform fmt -recursive
