@@ -1,5 +1,15 @@
 provider "aws" {
-  region = "us-east-1"  # Change region as needed
+  region = "us-east-1"  # Change this to your AWS region
+}
+
+terraform {
+  backend "s3" {
+    bucket         = "bharghav-terraform-state"   # Replace with your bucket name
+    key            = "terraform.tfstate"
+    region         = "us-east-1"
+    dynamodb_table = "terraform-lock"  # For state locking
+    encrypt        = true
+  }
 }
 
 # Create a VPC
@@ -13,8 +23,8 @@ resource "aws_vpc" "my_vpc" {
 
 # Create a Subnet inside the VPC
 resource "aws_subnet" "my_subnet" {
-  vpc_id            = aws_vpc.my_vpc.id
-  cidr_block        = "10.0.1.0/24"
+  vpc_id                  = aws_vpc.my_vpc.id
+  cidr_block              = "10.0.1.0/24"
   map_public_ip_on_launch = true  # Enables public IP for EC2 instances in this subnet
 
   tags = {
@@ -95,7 +105,7 @@ sudo systemctl restart httpd
 EOF
 
   tags = {
-    Name = "bharghav-ec2-instance"
+    Name = "my-ec2-instance"
   }
 }
 
